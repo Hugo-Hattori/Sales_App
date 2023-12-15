@@ -3,13 +3,11 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 
 
-GUI = Builder.load_file('main.kv')
-
-
-class Homepage(Screen):
+class HomePage(Screen):
     pass
 
 
+GUI = Builder.load_file('main.kv')
 class MainApp(App):
 
     def build(self):
