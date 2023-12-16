@@ -1,3 +1,8 @@
 <ConfigPage>:
-    Label:
-        text: "Página de ajustes"
+    GridLayout:
+        rows: 1
+        Label:
+            text: "Página de ajustes"
+        Button:
+            text: "Voltar"
+            on_release: app.mudar_tela("homepage")
