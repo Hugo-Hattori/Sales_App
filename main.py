@@ -7,6 +7,10 @@ class HomePage(Screen):
     pass
 
 
+class ConfigPage(Screen):
+    pass
+
+
 GUI = Builder.load_file('main.kv')
 class MainApp(App):
 
