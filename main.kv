@@ -1,9 +1,21 @@
 #:include kv/homepage.kv
 #:include kv/configpage.kv
+#:import utils kivy.utils
 
-GridLayout:
-    rows: 1
+FloatLayout:
+    canvas:
+        Color:
+            rgb: utils.get_color_from_hex("#001824")
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    Image:
+        pos_hint: {"right": 1, "top": 0.9}
+        size_hint: 1, 0.2
+        source: "icones/hash.png"
     ScreenManager:
+        pos_hint: {"right": 1, "top": 0.7}
+        size_hint: 1, 0.7
         id: screen_manager
         HomePage:
             name: "homepage"
