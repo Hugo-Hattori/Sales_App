@@ -1,14 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
-
-
-class HomePage(Screen):
-    pass
-
-
-class ConfigPage(Screen):
-    pass
+from telas import *
+from botoes import *
 
 
 GUI = Builder.load_file('main.kv')

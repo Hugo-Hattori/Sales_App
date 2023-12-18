@@ -5,10 +5,11 @@
                 size: self.size
                 pos: self.pos
                 source: "icones/bg1.png"
-        Label:
+        LabelButton:
             pos_hint: {"right": 1,"top": 1}
             size_hint: 1, 0.85
-            text: "Homepage"
+            text: "Homepage - Ir para Configs"
+            on_release: app.mudar_tela("configpage")
         Button:
             pos_hint: {"right": 1, "top": 0.15}
             size_hint: 0.33, 0.15
