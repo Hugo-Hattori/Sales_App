@@ -5,13 +5,42 @@
                 size: self.size
                 pos: self.pos
                 source: "icones/bg1.png"
-        LabelButton:
-            pos_hint: {"right": 1,"top": 1}
-            size_hint: 1, 0.85
-            text: "Homepage - Ir para Configs"
-            on_release: app.mudar_tela("configpage")
-        Button:
-            pos_hint: {"right": 1, "top": 0.15}
-            size_hint: 0.33, 0.15
-            text: "Ir para Configurações"
-            on_release: app.mudar_tela("configpage")
+        Label:
+            # desenha canvas antes de escrever o texto
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao_fino.png"
+            pos_hint: {"right": 0.85,"top": 0.95}
+            size_hint: 0.7, 0.2
+            text: "Total de Vendas: R$XXXX"
+            id: label_total_vendas
+            # habilitar edições mais complexas de texto
+            markup: True
+
+        # lista de vendas
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.75}
+            size_hint: 1, 0.63
+
+        # 3 botões
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 1, "top": 0.12}
+            size_hint: 1, 0.12
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ImageButton:
+                source: "icones/add.png"
+                on_release: print('Adicionar Venda')
+            ImageButton:
+                source: "icones/salesman.png"
+                on_release: print('Lista de Vendedores')
+            ImageButton:
+                source: "icones/settings.png"
+                on_release: app.mudar_tela("configpage")
