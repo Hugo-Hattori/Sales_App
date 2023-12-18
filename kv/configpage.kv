@@ -23,36 +23,36 @@
             pos_hint: {"right": 0.5,"top": 0.7}
             size_hint: 0.5, 0.15
             source: "icones/foto_perfil.png"
-            on_release: print('Ir para Tela Mudar Foto de Perfil')
+            on_release: app.mudar_tela("fotoperfilpage")
         LabelButton:
             pos_hint: {"right": 0.9,"top": 0.7}
             size_hint: 0.5, 0.15
             text: "Mudar Foto de Perfil"
-            on_release: print('Ir para Tela Mudar Foto de Perfil')
+            on_release: app.mudar_tela("fotoperfilpage")
 
         # adicionar vendedor
         ImageButton:
             pos_hint: {"right": 0.5,"top": 0.5}
             size_hint: 0.5, 0.15
             source: "icones/adicionar_vendedor.png"
-            on_release: print('Ir para Tela Acompanhar Vendedor')
+            on_release: app.mudar_tela("adicionarvendedorpage")
         LabelButton:
             pos_hint: {"right": 0.9,"top": 0.5}
             size_hint: 0.5, 0.15
             text: "Acompanhar Vendedor"
-            on_release: print('Ir para Tela Acompanhar Vendedor')
+            on_release: app.mudar_tela("adicionarvendedorpage")
 
         # ver todas as vendas
         ImageButton:
             pos_hint: {"right": 0.5,"top": 0.3}
             size_hint: 0.5, 0.15
             source: "icones/vendas_empresa.png"
-            on_release: print('Ir para Tela Ver Todas as Vendas')
+            on_release: app.mudar_tela("todasvendaspage")
         LabelButton:
             pos_hint: {"right": 0.9,"top": 0.3}
             size_hint: 0.5, 0.15
             text: "Ver Todas as Vendas"
-            on_release: print('Ir para Tela Ver Todas as Vendas')
+            on_release: app.mudar_tela("todasvendaspage")
 
         # botão voltar
         FloatLayout:

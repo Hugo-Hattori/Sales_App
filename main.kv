@@ -1,5 +1,10 @@
 #:include kv/homepage.kv
 #:include kv/configpage.kv
+#:include kv/adicionarvendaspage.kv
+#:include kv/adicionarvendedorpage.kv
+#:include kv/fotoperfilpage.kv
+#:include kv/listagemvendedorespage.kv
+#:include kv/todasvendaspage.kv
 #:import utils kivy.utils
 
 FloatLayout:
@@ -23,3 +28,18 @@ FloatLayout:
         ConfigPage:
             name: "configpage"
             id: configpage
+        AdicionarVendasPage:
+            name: "adicionarvendaspage"
+            id: adicionarvendaspage
+        AdicionarVendedorPage:
+            name: "adicionarvendedorpage"
+            id: adicionarvendedorpage
+        FotoPerfilPage:
+            name: "fotoperfilpage"
+            id: fotoperfilpage
+        ListagemVendedoresPage:
+            name: "listagemvendedorespage"
+            id: listagemvendedorespage
+        TodasVendasPage:
+            name: "todasvendaspage"
+            id: todasvendaspage

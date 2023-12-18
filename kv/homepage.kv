@@ -37,10 +37,10 @@
                     pos: self.pos
             ImageButton:
                 source: "icones/add.png"
-                on_release: print('Adicionar Venda')
+                on_release: app.mudar_tela("adicionarvendaspage")
             ImageButton:
                 source: "icones/salesman.png"
-                on_release: print('Lista de Vendedores')
+                on_release: app.mudar_tela("listagemvendedorespage")
             ImageButton:
                 source: "icones/settings.png"
                 on_release: app.mudar_tela("configpage")
