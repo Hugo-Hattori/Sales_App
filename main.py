@@ -14,13 +14,23 @@ class MainApp(App):
         return GUI
 
     def on_start(self):
+        # pegar informações do usuário
         requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.id_usuario}.json")
         requisicao_dic = requisicao.json()
+
+        # preencher foto de perfil
         avatar = requisicao_dic['avatar']
-        print(avatar)
-        print(self.root.ids)
         foto_perfil = self.root.ids["foto_perfil"]
         foto_perfil.source = f"icones/fotos_perfil/{avatar}"
+
+        # preencher lista de vendas
+        try:
+            print(requisicao_dic['vendas'])
+            vendas = requisicao_dic['vendas'][1:]
+            for venda in vendas:
+                print(venda)
+        except:
+            pass
 
 
     def mudar_tela(self, id_tela):
