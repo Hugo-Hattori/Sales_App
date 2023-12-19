@@ -18,6 +18,10 @@ class MainApp(App):
         requisicao_dic = requisicao.json()
         avatar = requisicao_dic['avatar']
         print(avatar)
+        print(self.root.ids)
+        foto_perfil = self.root.ids["foto_perfil"]
+        foto_perfil.source = f"icones/fotos_perfil/{avatar}"
+
 
     def mudar_tela(self, id_tela):
         gerenciador_telas = self.root.ids["screen_manager"] #'self.root' faz referência ao arquivo main.kv
