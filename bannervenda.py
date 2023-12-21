@@ -54,6 +54,6 @@ class BannerVenda(GridLayout):
         self.add_widget(meio)
         self.add_widget(direita)
 
-    def atualizar_rec(self, *args):
+    def atualizar_rec(self, *args): #bind por padrão manda vários argumentos, por isso devemos escrever *args
         self.rec.pos = self.pos
         self.rec.size = self.size
