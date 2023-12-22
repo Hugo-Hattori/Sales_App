@@ -6,6 +6,7 @@ import requests
 from bannervenda import BannerVenda
 import os
 from functools import partial
+from myFirebase import MyFirebase
 
 
 GUI = Builder.load_file('main.kv')
@@ -14,6 +15,7 @@ class MainApp(App):
     id_usuario = 1
 
     def build(self):
+        self.firebase = MyFirebase()
         return GUI
 
     def on_start(self):

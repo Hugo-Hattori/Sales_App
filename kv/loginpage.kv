@@ -12,12 +12,12 @@
             pos_hint: {"right": 0.9, "top": 0.9}
             size_hint: 0.8, 0.2
         TextInput:
-            id: email
+            id: email_input
             hint_text: "E-mail"
             pos_hint: {"right": 0.9, "top": 0.7}
             size_hint: 0.8, 0.1
         TextInput:
-            id: senha
+            id: senha_input
             hint_text: "Senha"
             pos_hint: {"right": 0.9, "top": 0.55}
             size_hint: 0.8, 0.1
@@ -43,7 +43,7 @@
                     pos: self.pos
                     size: self.size
                     source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
-            on_release: print("Criar Conta")
+            on_release: app.firebase.criar_conta(email_input.text, senha_input.text)
             text: "Criar Conta"
             pos_hint: {"right": 0.95, "top": 0.3}
             size_hint: 0.4, 0.2
