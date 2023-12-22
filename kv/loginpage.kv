@@ -1,0 +1,49 @@
+<LoginPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+        Label:
+            text: "CONTROLE DE [color=#00CFDB]VENDAS HASHTAG [/color]"
+            bold: True
+            markup: True
+            pos_hint: {"right": 0.9, "top": 0.9}
+            size_hint: 0.8, 0.2
+        TextInput:
+            id: email
+            hint_text: "E-mail"
+            pos_hint: {"right": 0.9, "top": 0.7}
+            size_hint: 0.8, 0.1
+        TextInput:
+            id: senha
+            hint_text: "Senha"
+            pos_hint: {"right": 0.9, "top": 0.55}
+            size_hint: 0.8, 0.1
+        Label:
+            text: "[color=#00CFDB]Faça seu Login[/color]"
+            bold: True
+            markup: True
+            pos_hint: {"right": 0.9, "top": 0.4}
+            size_hint: 0.8, 0.1
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: print("Fazer Login")
+            text: "Fazer Login"
+            pos_hint: {"right": 0.45, "top": 0.3}
+            size_hint: 0.4, 0.2
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: print("Criar Conta")
+            text: "Criar Conta"
+            pos_hint: {"right": 0.95, "top": 0.3}
+            size_hint: 0.4, 0.2

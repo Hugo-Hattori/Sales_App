@@ -5,6 +5,7 @@
 #:include kv/fotoperfilpage.kv
 #:include kv/listagemvendedorespage.kv
 #:include kv/todasvendaspage.kv
+#:include kv/loginpage.kv
 #:import utils kivy.utils
 
 FloatLayout:
@@ -23,6 +24,10 @@ FloatLayout:
         pos_hint: {"right": 1, "top": 0.7}
         size_hint: 1, 0.7
         id: screen_manager
+        #a primeira página é o que irá aparecer qdo se inicia o app
+        LoginPage:
+            name: "loginpage"
+            id: loginpage
         HomePage:
             name: "homepage"
             id: homepage
