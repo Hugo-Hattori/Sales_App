@@ -5,6 +5,7 @@ from botoes import *
 import requests
 from bannervenda import BannerVenda
 import os
+from functools import partial
 
 
 GUI = Builder.load_file('main.kv')
@@ -21,7 +22,7 @@ class MainApp(App):
         pagina_fotoperfil = self.root.ids["fotoperfilpage"]
         lista_fotos_perfil = pagina_fotoperfil.ids["lista_fotos_perfil"]
         for foto in arquivos:
-            imagem = ImageButton(source=f"icones/fotos_perfil/{foto}", on_release=self.mudar_foto_perfil)
+            imagem = ImageButton(source=f"icones/fotos_perfil/{foto}", on_release=partial(self.mudar_foto_perfil, foto))
             lista_fotos_perfil.add_widget(imagem)
         # executa funções que dependem do usuário
         self.carregar_infos_usuario()
@@ -55,7 +56,15 @@ class MainApp(App):
         gerenciador_telas = self.root.ids["screen_manager"] #'self.root' faz referência ao arquivo main.kv
         gerenciador_telas.current = id_tela
 
-    def mudar_foto_perfil(self, *args): #por padrão on_release manda vários argumentos, por isso o *args
-        print("Mudar foto perfil")
+    def mudar_foto_perfil(self, foto, *args): #por padrão on_release manda vários argumentos, por isso o *args
+        foto_perfil = self.root.ids["foto_perfil"]
+        foto_perfil.source = f"icones/fotos_perfil/{foto}"
+
+        # realizando um update no banco de dados
+        info = f'{{"avatar": "{foto}"}}' # passar dicionário formatado como texto
+        requisicao = requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.id_usuario}.json",
+                                    data = info)
+        # print(requisicao.json())
+        self.mudar_tela("configpage")
 
 MainApp().run()
