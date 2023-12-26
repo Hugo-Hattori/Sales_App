@@ -35,7 +35,7 @@
                     pos: self.pos
                     size: self.size
                     source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
-            on_release: print("Fazer Login")
+            on_release: app.firebase.fazer_login(email_input.text, senha_input.text)
             text: "Fazer Login"
             pos_hint: {"right": 0.45, "top": 0.3}
             size_hint: 0.4, 0.2
