@@ -33,8 +33,10 @@ class MyFirebase():
                 arquivo.write(refresh_token)
 
             link = f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{local_id}.json"
+            # dicionário com infos padrão de um usuário recém criado
             info_usuario = '{"avatar": "foto1.png", "equipe": "", "total_vendas": "0", "vendas": ""}'
             requisicao_usuario = requests.patch(link, data=info_usuario)
+            meu_aplicativo.carregar_infos_usuario()
             meu_aplicativo.mudar_tela("homepage")
         else:
             mensagem_erro = requisicao_dic["error"]["message"]

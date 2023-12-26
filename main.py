@@ -12,8 +12,6 @@ from myFirebase import MyFirebase
 GUI = Builder.load_file('main.kv')
 class MainApp(App):
 
-    id_usuario = 1
-
     def build(self):
         self.firebase = MyFirebase()
         return GUI
@@ -30,27 +28,30 @@ class MainApp(App):
         self.carregar_infos_usuario()
 
     def carregar_infos_usuario(self):
-        # pegar informações do usuário
-        requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.id_usuario}.json")
-        requisicao_dic = requisicao.json()
-
-        # preencher foto de perfil
-        avatar = requisicao_dic['avatar']
-        foto_perfil = self.root.ids["foto_perfil"]
-        foto_perfil.source = f"icones/fotos_perfil/{avatar}"
-
-        # preencher lista de vendas
         try:
-            print(requisicao_dic['vendas'])
-            vendas = requisicao_dic['vendas'][1:]
-            pagina_homepage = self.root.ids["homepage"]
-            lista_vendas = pagina_homepage.ids["lista_vendas"]
-            for venda in vendas:
-                banner = BannerVenda(cliente=venda['cliente'], foto_cliente=venda['foto_cliente'],
-                                     produto=venda['produto'], foto_produto=venda['foto_produto'],
-                                     preco=venda['preco'], data=venda['data'], unidade=venda['unidade'],
-                                     quantidade=venda['quantidade'])
-                lista_vendas.add_widget(banner)  #adicionar um item na lista de vendas
+            # pegar informações do usuário
+            requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}.json")
+            requisicao_dic = requisicao.json()
+
+            # preencher foto de perfil
+            avatar = requisicao_dic['avatar']
+            foto_perfil = self.root.ids["foto_perfil"]
+            foto_perfil.source = f"icones/fotos_perfil/{avatar}"
+
+            # preencher lista de vendas
+            try:
+                print(requisicao_dic['vendas'])
+                vendas = requisicao_dic['vendas'][1:]
+                pagina_homepage = self.root.ids["homepage"]
+                lista_vendas = pagina_homepage.ids["lista_vendas"]
+                for venda in vendas:
+                    banner = BannerVenda(cliente=venda['cliente'], foto_cliente=venda['foto_cliente'],
+                                         produto=venda['produto'], foto_produto=venda['foto_produto'],
+                                         preco=venda['preco'], data=venda['data'], unidade=venda['unidade'],
+                                         quantidade=venda['quantidade'])
+                    lista_vendas.add_widget(banner)  #adicionar um item na lista de vendas
+            except:
+                pass
         except:
             pass
 
@@ -64,7 +65,7 @@ class MainApp(App):
 
         # realizando um update no banco de dados
         info = f'{{"avatar": "{foto}"}}' # passar dicionário formatado como texto
-        requisicao = requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.id_usuario}.json",
+        requisicao = requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}.json",
                                     data = info)
         # print(requisicao.json())
         self.mudar_tela("configpage")
