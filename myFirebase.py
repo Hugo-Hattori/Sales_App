@@ -48,3 +48,16 @@ class MyFirebase():
 
     def fazer_login(self, email, senha):
         pass
+
+    def trocar_token(self, refreshtoken):
+        link = f"https://securetoken.googleapis.com/v1/token?key={self.API_KEY}"
+        info = {
+            "grant_type": "refresh_token",
+            "refresh_token": refreshtoken
+        }
+        requisicao = requests.post(link, data=info)
+        requisicao_dic = requisicao.json()
+        print(requisicao_dic)
+        local_id = requisicao_dic["user_id"]
+        id_token = requisicao_dic["id_token"]
+        return local_id, id_token

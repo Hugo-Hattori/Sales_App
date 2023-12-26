@@ -29,6 +29,13 @@ class MainApp(App):
 
     def carregar_infos_usuario(self):
         try:
+            #perpetuando login com refreshtoken
+            with open("refreshtoken.txt", "r") as arquivo:
+                refresh_token = arquivo.read()
+            local_id, id_token = self.firebase.trocar_token(refresh_token)
+            self.local_id = local_id
+            self.id_token = id_token
+
             # pegar informações do usuário
             requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}.json")
             requisicao_dic = requisicao.json()
@@ -52,6 +59,9 @@ class MainApp(App):
                     lista_vendas.add_widget(banner)  #adicionar um item na lista de vendas
             except:
                 pass
+
+            self.mudar_tela("homepage")
+
         except:
             pass
 
