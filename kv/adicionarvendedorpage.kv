@@ -6,10 +6,38 @@
                 pos: self.pos
                 source: "icones/bg1.png"
         Label:
-            pos_hint: {"right": 0.85,"top": 0.95}
-            size_hint: 0.7, 0.2
+            pos_hint: {"right": 0.9,"top": 0.8}
+            size_hint: 0.8, 0.1
             bold: True
-            text: "Adicionar Vendedor Page"
+            text: "Insira o [color=#00CFDB]ID de outro vendedor[/color] para acompanhá-lo"
+            markup: True
+
+        # botão Adicionar Vendedor
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: print("Vendedor Adicionado")
+            text: "Adicionar Vendedor"
+            pos_hint: {"right": 0.9, "top": 0.55}
+            size_hint: 0.8, 0.2
+
+        # caixa de preenchimento
+        TextInput:
+            pos_hint: {"right": 0.9,"top": 0.7}
+            size_hint: 0.8, 0.1
+            id: input_id_outro_vendedor
+
+        # label de aviso
+        Label:
+            text: ""
+            markup: True
+            bold: True
+            pos_hint: {"right": 0.9,"top": 0.4}
+            size_hint: 0.8, 0.1
+            id: mensagem_adicionar_vendedor
 
         # botão voltar
         FloatLayout:
@@ -26,4 +54,4 @@
                 pos_hint: {"right": 0.2, "top": 0.9}
                 size_hint: 0.2, 0.8
                 source: "icones/voltar.png"
-                on_release: app.mudar_tela("homepage")
+                on_release: app.mudar_tela("configpage")
