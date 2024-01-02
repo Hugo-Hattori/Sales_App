@@ -5,11 +5,19 @@
                 size: self.size
                 pos: self.pos
                 source: "icones/bg1.png"
-        Label:
-            pos_hint: {"right": 0.85,"top": 0.95}
-            size_hint: 0.7, 0.2
-            bold: True
-            text: "Listagem Vendedores Page"
+
+        # lista de vendedores
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.9}
+            size_hint: 1, 0.78
+            GridLayout:
+                cols: 1
+                id: lista_vendedores
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "90dp"
+                row_force_default: True
+                spacing: 2, 2
 
         # botão voltar
         FloatLayout:
