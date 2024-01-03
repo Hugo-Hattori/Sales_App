@@ -51,15 +51,18 @@
             rows: 1
             pos_hint: {"right": 0.9, "top": 0.45}
             size_hint: 0.8, 0.1
-            Label:
+            LabelButton:
                 text: "kg"
                 id: unidades_kg
-            Label:
+                on_release: app.selecionar_unidade("unidades_kg")
+            LabelButton:
                 text: "unidades"
                 id: unidades_unidades
-            Label:
+                on_release: app.selecionar_unidade("unidades_unidades")
+            LabelButton:
                 text: "litros"
                 id: unidades_litro
+                on_release: app.selecionar_unidade("unidades_litro")
 
         # botoes
         LabelButton:
