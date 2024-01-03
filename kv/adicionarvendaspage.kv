@@ -5,25 +5,102 @@
                 size: self.size
                 pos: self.pos
                 source: "icones/bg1.png"
-        Label:
-            pos_hint: {"right": 0.85,"top": 0.95}
-            size_hint: 0.7, 0.2
-            bold: True
-            text: "Adicionar Vendas Page"
 
-        # botão voltar
-        FloatLayout:
-            pos_hint: {"right": 1, "top": 0.12}
-            size_hint: 1, 0.12
-            canvas:
-                Color:
-                    rgb: utils.get_color_from_hex("#006D7E")
+        # selecionar cliente
+        Label:
+            pos_hint: {"right": 1,"top": 1}
+            size_hint: 1, 0.05
+            text: "Selecione o Cliente"
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.95}
+            size_hint: 1, 0.15
+            GridLayout:
+                rows: 1
+                id: lista_clientes
+                size_hint_x: None
+                width: self.minimum_width
+                column_default_width: "100dp"
+                column_force_default: True
+
+        # selecionar produto
+        Label:
+            pos_hint: {"right": 1,"top": 0.75}
+            size_hint: 1, 0.05
+            text: "Selecione o Produto"
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.7}
+            size_hint: 1, 0.15
+            GridLayout:
+                rows: 1
+                id: lista_produtos
+                size_hint_x: None
+                width: self.minimum_width
+                column_default_width: "100dp"
+                column_force_default: True
+
+        # data
+        Label:
+            id: label_data
+            pos_hint: {"right": 1, "top": 0.5}
+            size_hint: 1, 0.05
+            bold: True
+            text: "Data: 01/01/2024"
+
+        # selecionar a unidade
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.45}
+            size_hint: 0.8, 0.1
+            Label:
+                text: "kg"
+                id: unidades_kg
+            Label:
+                text: "unidades"
+                id: unidades_unidades
+            Label:
+                text: "litros"
+                id: unidades_litro
+
+        # botoes
+        LabelButton:
+            canvas.before:
                 Rectangle:
-                    size: self.size
                     pos: self.pos
-            ImageButton:
-                #posicao e size em relação ao novo FloatLayout
-                pos_hint: {"right": 0.2, "top": 0.9}
-                size_hint: 0.2, 0.8
-                source: "icones/voltar.png"
-                on_release: app.mudar_tela("homepage")
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: app.mudar_tela("homepage")
+            text: "Cancelar"
+            pos_hint: {"right": 0.45, "top": 0.2}
+            size_hint: 0.4, 0.2
+        LabelButton:
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
+            on_release: print("Adicionar Venda")
+            text: "Adicionar Venda"
+            pos_hint: {"right": 0.95, "top": 0.2}
+            size_hint: 0.4, 0.2
+
+        # preço total
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.355}
+            size_hint: 0.8, 0.075
+            Label:
+                text: "Preço Total (R$)"
+            TextInput:
+                id: preco_total
+                hint_text: "Digite apenas números"
+
+        # quantidade
+        GridLayout:
+            rows: 1
+            pos_hint: {"right": 0.9, "top": 0.275}
+            size_hint: 0.8, 0.075
+            Label:
+                text: "Quantidade Total"
+            TextInput:
+                id: preco_total
+                hint_text: "0"
