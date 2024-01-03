@@ -17,14 +17,35 @@ class MainApp(App):
         self.firebase = MyFirebase()
         return GUI
 
-    def on_start(self):
-        # carregar as fotos de perfil (isso independe do usuário)
+    def on_start(self): # carregar infos que independe do usuário estar logado
+        # carregar fotos de perfil
         arquivos = os.listdir("icones/fotos_perfil")
         pagina_fotoperfil = self.root.ids["fotoperfilpage"]
         lista_fotos_perfil = pagina_fotoperfil.ids["lista_fotos_perfil"]
         for foto in arquivos:
             imagem = ImageButton(source=f"icones/fotos_perfil/{foto}", on_release=partial(self.mudar_foto_perfil, foto))
             lista_fotos_perfil.add_widget(imagem)
+
+        # carregar fotos dos clientes
+        arquivos = os.listdir("icones/fotos_clientes")
+        pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
+        lista_clientes = pagina_adicionar_vendas.ids["lista_clientes"]
+        for foto_cliente in arquivos:
+            imagem = ImageButton(source=f"icones/fotos_clientes/{foto_cliente}")
+            label = LabelButton(text=foto_cliente.replace(".png", "").capitalize())
+            lista_clientes.add_widget(imagem)
+            lista_clientes.add_widget(label)
+
+        # carregar fotos dos produtos
+        arquivos = os.listdir("icones/fotos_produtos")
+        pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
+        lista_produtos = pagina_adicionar_vendas.ids["lista_produtos"]
+        for foto_produto in arquivos:
+            imagem = ImageButton(source=f"icones/fotos_produtos/{foto_produto}")
+            label = LabelButton(text=foto_produto.replace(".png", "").capitalize())
+            lista_produtos.add_widget(imagem)
+            lista_produtos.add_widget(label)
+
         # executa funções que dependem do usuário
         self.carregar_infos_usuario()
 
