@@ -7,7 +7,6 @@ class MyFirebase():
 
     def criar_conta(self, email, senha):
         link = f"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={self.API_KEY}"
-        print(email, senha)
         info = {"email": email,
                 "password": senha,
                 "returnSecureToken": True}
@@ -34,7 +33,6 @@ class MyFirebase():
 
             req_id = requests.get("https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/proximo_id_vendedor.json")
             id_vendedor = req_id.json()
-            print(id_vendedor)
 
             # Criando o Usuário no Banco de Dados (Firebase)
             link = f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{local_id}.json"
@@ -55,7 +53,6 @@ class MyFirebase():
             pagina_login = meu_aplicativo.root.ids["loginpage"]
             pagina_login.ids["mensagem_login"].text = mensagem_erro
             pagina_login.ids["mensagem_login"].color = (1, 0, 0, 1)
-        print(requisicao_dic)
 
     def fazer_login(self, email, senha):
         link = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={self.API_KEY}"
@@ -97,7 +94,6 @@ class MyFirebase():
         }
         requisicao = requests.post(link, data=info)
         requisicao_dic = requisicao.json()
-        print(requisicao_dic)
         local_id = requisicao_dic["user_id"]
         id_token = requisicao_dic["id_token"]
         return local_id, id_token

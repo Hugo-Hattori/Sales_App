@@ -1,3 +1,5 @@
+import time
+
 from kivy.app import App
 from kivy.lang import Builder
 from telas import *
@@ -95,19 +97,19 @@ class MainApp(App):
 
             # preencher lista de vendas
             try:
-                print(requisicao_dic['vendas'])
-                vendas = requisicao_dic['vendas'][1:]
+                vendas = requisicao_dic['vendas']
                 self.vendas = vendas
                 pagina_homepage = self.root.ids["homepage"]
                 lista_vendas = pagina_homepage.ids["lista_vendas"]
-                for venda in vendas:
+                for id_venda in vendas:
+                    venda = vendas[id_venda]
                     banner = BannerVenda(cliente=venda['cliente'], foto_cliente=venda['foto_cliente'],
                                          produto=venda['produto'], foto_produto=venda['foto_produto'],
                                          preco=venda['preco'], data=venda['data'], unidade=venda['unidade'],
                                          quantidade=venda['quantidade'])
                     lista_vendas.add_widget(banner)  #adicionar um item na lista de vendas
-            except:
-                pass
+            except Exception as erro:
+                print(erro)
 
             # preencher a equipe (vendedores que acompanha)
             equipe = requisicao_dic["equipe"]
@@ -139,7 +141,6 @@ class MainApp(App):
         info = f'{{"avatar": "{foto}"}}' # passar dicionário formatado como texto
         requisicao = requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}.json",
                                     data = info)
-        # print(requisicao.json())
         self.mudar_tela("configpage")
 
     def adicionar_vendedor(self, id_vendedor_add):
