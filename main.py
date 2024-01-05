@@ -207,7 +207,7 @@ class MainApp(App):
                 pass
 
     def selecionar_unidade(self, id_label, *args):
-        self.unidade = id_label
+        self.unidade = id_label.replace("unidades_", "")
         pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
 
         # pintar de branco todos os outros itens
@@ -227,7 +227,7 @@ class MainApp(App):
         preco = pagina_adicionar_vendas.ids["preco_total"].text
         quantidade = pagina_adicionar_vendas.ids["quantidade"].text
 
-        # destaca de vermelho caso o campo não está selecionado
+        # destaca de vermelho caso o campo não esteja selecionado
         if not cliente:
             pagina_adicionar_vendas.ids["label_selecionar_cliente"].color = (1, 0, 0, 1)
         if not produto:
@@ -251,13 +251,52 @@ class MainApp(App):
             except:
                 pagina_adicionar_vendas.ids["label_quantidade"].color = (1, 0, 0, 1)
 
-        if cliente and produto and unidade:
+        # dado que o usuário preencheu tudo
+        if cliente and produto and unidade and (type(quantidade)) == float and (type(preco)) == float:
+            preco = preco*quantidade
             foto_produto = produto + ".png"
             foto_cliente = cliente + ".png"
+
+            # adicionar a venda no BD
+            info = f'{{"cliente": "{cliente}", "produto": "{produto}", "foto_cliente": "{foto_cliente}",' \
+                   f' "foto_produto": "{foto_produto}","data": "{data}", "unidade": "{unidade}",' \
+                   f' "preco": "{preco}", "quantidade": "{quantidade}"}}'
+            requests.post(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}/vendas.json",
+                          data=info)
+
+            # criar o banner na instância atual do usuário logado
+            banner = BannerVenda(cliente=cliente, produto=produto, foto_cliente=foto_cliente, foto_produto=foto_produto,
+                                 data=data, preco=preco, quantidade=quantidade, unidade=unidade)
+            pagina_homepage = self.root.ids["homepage"]
+            lista_vendas = pagina_homepage.ids["lista_vendas"]
+            lista_vendas.add_widget(banner)
+
+            # atualizar o valor de total de vendas
+            requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}"
+                                      f"/total_vendas.json")
+            total_vendas = float(requisicao.json())
+            total_vendas += preco
+            info = f'{{"total_vendas": "{total_vendas}"}}'
+            requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{self.local_id}.json",
+                           data=info)
+
+            # atualizar o label de total de vendas
+            homepage = self.root.ids["homepage"]
+            homepage.ids["label_total_vendas"].text = f"[color=#000000<color>]Total de Vendas:[/color] [b]R${total_vendas}[/b]"
+
+            self.mudar_tela("homepage")
 
         # resetando parâmetros
         self.cliente = None
         self.produto = None
         self.unidade = None
+
+        # pintar de branco todos os itens de branco
+        lista_clientes = pagina_adicionar_vendas.ids["lista_clientes"]
+        lista_produtos = pagina_adicionar_vendas.ids["lista_produtos"]
+        for itens1, itens2 in zip(lista_clientes.children, lista_produtos.children):
+            itens1.color = (1, 1, 1, 1)
+            itens2.color = (1, 1, 1, 1)
+
 
 MainApp().run()
