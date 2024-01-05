@@ -11,6 +11,7 @@
             pos_hint: {"right": 1,"top": 1}
             size_hint: 1, 0.05
             text: "Selecione o Cliente"
+            id: label_selecionar_cliente
         ScrollView:
             pos_hint: {"right": 1, "top": 0.95}
             size_hint: 1, 0.15
@@ -27,6 +28,7 @@
             pos_hint: {"right": 1,"top": 0.75}
             size_hint: 1, 0.05
             text: "Selecione o Produto"
+            id: label_selecionar_produto
         ScrollView:
             pos_hint: {"right": 1, "top": 0.7}
             size_hint: 1, 0.15
@@ -81,7 +83,7 @@
                     pos: self.pos
                     size: self.size
                     source: "icones/botao.png" if self.state == "normal" else "icones/botao_apertado.png"
-            on_release: print("Adicionar Venda")
+            on_release: app.adicionar_venda()
             text: "Adicionar Venda"
             pos_hint: {"right": 0.95, "top": 0.2}
             size_hint: 0.4, 0.2
@@ -93,6 +95,7 @@
             size_hint: 0.8, 0.075
             Label:
                 text: "Preço Total (R$)"
+                id: label_preco
             TextInput:
                 id: preco_total
                 hint_text: "Digite apenas números"
@@ -104,6 +107,7 @@
             size_hint: 0.8, 0.075
             Label:
                 text: "Quantidade Total"
+                id: label_quantidade
             TextInput:
-                id: preco_total
+                id: quantidade
                 hint_text: "0"

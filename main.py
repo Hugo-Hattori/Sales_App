@@ -13,6 +13,9 @@ from datetime import date
 
 GUI = Builder.load_file('main.kv')
 class MainApp(App):
+    cliente = None
+    produto = None
+    unidade = None
 
     def build(self):
         self.firebase = MyFirebase()
@@ -167,13 +170,14 @@ class MainApp(App):
                 lista_vendedores.add_widget(banner_vendedor)
 
     def selecionar_cliente(self, foto, *args):
+        self.cliente = foto.replace(".png", "")
         # pintar de branco todos os outros itens
         pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
         lista_clientes = pagina_adicionar_vendas.ids["lista_clientes"]
+        pagina_adicionar_vendas.ids["label_selecionar_cliente"].color = (1, 1, 1, 1)
 
         for item in list(lista_clientes.children): #pegando todos os widgets dentro do item de id lista_clientes
             item.color = (1, 1, 1, 1) #pintando de branco
-
             # pintar de azul o texto do item selecionado
             # foto -> carrefour.png / Label -> Carrefour -> carrefour.png
             try:
@@ -185,13 +189,14 @@ class MainApp(App):
                 pass
 
     def selecionar_produto(self, foto, *args):
+        self.produto = foto.replace(".png", "")
         # pintar de branco todos os outros itens
         pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
         lista_produtos = pagina_adicionar_vendas.ids["lista_produtos"]
+        pagina_adicionar_vendas.ids["label_selecionar_produto"].color = (1, 1, 1, 1)
 
         for item in list(lista_produtos.children): #pegando todos os widgets dentro do item de id lista_clientes
             item.color = (1, 1, 1, 1) #pintando de branco
-
             # pintar de azul o texto do item selecionado
             try:
                 texto = item.text
@@ -202,6 +207,7 @@ class MainApp(App):
                 pass
 
     def selecionar_unidade(self, id_label, *args):
+        self.unidade = id_label
         pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
 
         # pintar de branco todos os outros itens
@@ -211,5 +217,47 @@ class MainApp(App):
 
         # pintar de azul o texto do item selecionado
         pagina_adicionar_vendas.ids[id_label].color = (0, 207/255, 219/255, 1)
+
+    def adicionar_venda(self):
+        cliente = self.cliente
+        produto = self.produto
+        unidade = self.unidade
+        pagina_adicionar_vendas = self.root.ids["adicionarvendaspage"]
+        data = pagina_adicionar_vendas.ids["label_data"].text.replace("Data: ", "")
+        preco = pagina_adicionar_vendas.ids["preco_total"].text
+        quantidade = pagina_adicionar_vendas.ids["quantidade"].text
+
+        # destaca de vermelho caso o campo não está selecionado
+        if not cliente:
+            pagina_adicionar_vendas.ids["label_selecionar_cliente"].color = (1, 0, 0, 1)
+        if not produto:
+            pagina_adicionar_vendas.ids["label_selecionar_produto"].color = (1, 0, 0, 1)
+        if not unidade:
+            pagina_adicionar_vendas.ids["unidades_kg"].color = (1, 0, 0, 1)
+            pagina_adicionar_vendas.ids["unidades_unidades"].color = (1, 0, 0, 1)
+            pagina_adicionar_vendas.ids["unidades_litro"].color = (1, 0, 0, 1)
+        if not preco:
+            pagina_adicionar_vendas.ids["label_preco"].color = (1, 0, 0, 1)
+        else:
+            try:
+                preco = float(preco)
+            except:
+                pagina_adicionar_vendas.ids["label_preco"].color = (1, 0, 0, 1)
+        if not quantidade:
+            pagina_adicionar_vendas.ids["label_quantidade"].color = (1, 0, 0, 1)
+        else:
+            try:
+                quantidade = float(quantidade)
+            except:
+                pagina_adicionar_vendas.ids["label_quantidade"].color = (1, 0, 0, 1)
+
+        if cliente and produto and unidade:
+            foto_produto = produto + ".png"
+            foto_cliente = cliente + ".png"
+
+        # resetando parâmetros
+        self.cliente = None
+        self.produto = None
+        self.unidade = None
 
 MainApp().run()
