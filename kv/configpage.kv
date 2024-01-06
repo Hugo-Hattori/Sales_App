@@ -47,12 +47,12 @@
             pos_hint: {"right": 0.5,"top": 0.3}
             size_hint: 0.5, 0.15
             source: "icones/vendas_empresa.png"
-            on_release: app.mudar_tela("todasvendaspage")
+            on_release: app.carregar_todas_vendas()
         LabelButton:
             pos_hint: {"right": 0.9,"top": 0.3}
             size_hint: 0.5, 0.15
             text: "Ver Todas as Vendas"
-            on_release: app.mudar_tela("todasvendaspage")
+            on_release: app.carregar_todas_vendas()
 
         # botão voltar
         FloatLayout:

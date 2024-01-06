@@ -1,5 +1,3 @@
-import time
-
 from kivy.app import App
 from kivy.lang import Builder
 from telas import *
@@ -299,5 +297,47 @@ class MainApp(App):
             itens1.color = (1, 1, 1, 1)
             itens2.color = (1, 1, 1, 1)
 
+    def carregar_todas_vendas(self):
+        # preencher a página todasvendaspage.kv
+        # pegar informações da empresa
+        requisicao = requests.get(
+            f'https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/.json?orderBy="id_vendedor"')
+        requisicao_dic = requisicao.json()
+
+        # preencher foto de perfil da empresa
+        foto_perfil = self.root.ids["foto_perfil"]
+        foto_perfil.source = "icones/fotos_perfil/hash.png"
+
+        # preencher total de vendas da empresa
+        pagina_todas_vendas = self.root.ids["todasvendaspage"]
+        lista_vendas = pagina_todas_vendas.ids["lista_vendas"]
+        total_vendas = 0
+        for local_id_usuario in requisicao_dic:
+            try:
+                vendas = requisicao_dic[local_id_usuario]["vendas"]
+                for id_venda in vendas:
+                    venda = vendas[id_venda]
+                    total_vendas += float(venda["preco"]) #adicionando o valor da venda no total
+                    banner = BannerVenda(cliente=venda["cliente"], produto=venda["produto"],
+                                         foto_cliente=venda["foto_cliente"],foto_produto=venda["foto_produto"],
+                                         data=venda["data"], preco=venda["preco"], quantidade=venda["quantidade"],
+                                         unidade=venda["unidade"])
+                    lista_vendas.add_widget(banner)
+            except:
+                pass
+
+        # preencher o total de vendas
+        pagina_todas_vendas.ids["label_total_vendas"].text =\
+            f"[color=#000000<color>]Total de Vendas:[/color] [b]R${total_vendas}[/b]"
+
+        # redirecionar para a página todasvendaspage.kv
+        self.mudar_tela("todasvendaspage")
+
+    def sair_todas_vendas(self):
+        # retorna a foto de perfil do usuário
+        foto_perfil = self.root.ids["foto_perfil"]
+        foto_perfil.source = f"icones/fotos_perfil/{self.avatar}"
+        # volta para configpage
+        self.mudar_tela("configpage")
 
 MainApp().run()
