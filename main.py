@@ -298,6 +298,13 @@ class MainApp(App):
             itens2.color = (1, 1, 1, 1)
 
     def carregar_todas_vendas(self):
+        pagina_todas_vendas = self.root.ids["todasvendaspage"]
+        lista_vendas = pagina_todas_vendas.ids["lista_vendas"]
+
+        # revomendo itens duplicados
+        for item in list(lista_vendas.children):
+            lista_vendas.remove_widget(item)
+
         # preencher a página todasvendaspage.kv
         # pegar informações da empresa
         requisicao = requests.get(
@@ -309,8 +316,6 @@ class MainApp(App):
         foto_perfil.source = "icones/fotos_perfil/hash.png"
 
         # preencher total de vendas da empresa
-        pagina_todas_vendas = self.root.ids["todasvendaspage"]
-        lista_vendas = pagina_todas_vendas.ids["lista_vendas"]
         total_vendas = 0
         for local_id_usuario in requisicao_dic:
             try:

@@ -1,0 +1,52 @@
+<VendasOutroVendedorPage>:
+    FloatLayout:
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: "icones/bg1.png"
+
+        Label:
+            # desenha canvas antes de escrever o texto
+            canvas.before:
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+                    source: "icones/botao_fino.png"
+            pos_hint: {"right": 0.85,"top": 0.95}
+            size_hint: 0.7, 0.2
+            text: "Total de Vendas: R$XXXX"
+            id: label_total_vendas
+            # habilitar edições mais complexas de texto
+            markup: True
+
+        # lista de vendas
+        ScrollView:
+            pos_hint: {"right": 1, "top": 0.75}
+            size_hint: 1, 0.63
+            GridLayout:
+                cols: 1
+                id: lista_vendas
+                #os parâmetros abaixo sempre são dados qdo o GridLayout foi criado dentro do ScrollView
+                size_hint_y: None
+                height: self.minimum_height
+                row_default_height: "90dp"
+                row_force_default: True
+                spacing: 2, 2
+
+    # botão voltar
+        FloatLayout:
+            pos_hint: {"right": 1, "top": 0.12}
+            size_hint: 1, 0.12
+            canvas:
+                Color:
+                    rgb: utils.get_color_from_hex("#006D7E")
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            ImageButton:
+                #posicao e size em relação ao novo FloatLayout
+                pos_hint: {"right": 0.2, "top": 0.9}
+                size_hint: 0.2, 0.8
+                source: "icones/voltar.png"
+                on_release: app.sair_todas_vendas()
