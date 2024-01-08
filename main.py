@@ -350,6 +350,10 @@ class MainApp(App):
         pagina_vendas_outro_vendedor = self.root.ids["vendasoutrovendedorpage"]
         lista_vendas = pagina_vendas_outro_vendedor.ids["lista_vendas"]
 
+        # revomendo vendas anteriores
+        for item in list(lista_vendas.children):
+            lista_vendas.remove_widget(item)
+
         try:
             vendas = dic_info_vendedor["vendas"]
             for id_venda in vendas:
