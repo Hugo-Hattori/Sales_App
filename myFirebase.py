@@ -31,11 +31,11 @@ class MyFirebase():
             with open("refreshtoken.txt", "w") as arquivo:
                 arquivo.write(refresh_token)
 
-            req_id = requests.get("https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/proximo_id_vendedor.json")
+            req_id = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/proximo_id_vendedor.json?auth={id_token}")
             id_vendedor = req_id.json()
 
             # Criando o Usuário no Banco de Dados (Firebase)
-            link = f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{local_id}.json"
+            link = f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/{local_id}.json?auth={id_token}"
             # dicionário com infos padrão de um usuário recém criado
             info_usuario = f'{{"avatar": "foto1.png", "equipe": "", "total_vendas": "0", "vendas": "", "id_vendedor": "{id_vendedor}"}}'
             requisicao_usuario = requests.patch(link, data=info_usuario)
@@ -43,7 +43,8 @@ class MyFirebase():
             # Atualizar o valor do proximo_id_vendedor
             proximo_id_vendedor = int(id_vendedor) + 1
             info_id_vendedor = f'{{"proximo_id_vendedor": "{proximo_id_vendedor}"}}'
-            requests.patch("https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/.json", data=info_id_vendedor)
+            requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/.json?auth={id_token}",
+                           data=info_id_vendedor)
 
             meu_aplicativo.carregar_infos_usuario()
             meu_aplicativo.mudar_tela("homepage")
