@@ -338,12 +338,12 @@ class MainApp(App):
         # redirecionar para a página todasvendaspage.kv
         self.mudar_tela("todasvendaspage")
 
-    def sair_todas_vendas(self):
+    def sair_todas_vendas(self, id_tela):
         # retorna a foto de perfil do usuário
         foto_perfil = self.root.ids["foto_perfil"]
         foto_perfil.source = f"icones/fotos_perfil/{self.avatar}"
         # volta para configpage
-        self.mudar_tela("configpage")
+        self.mudar_tela(id_tela)
 
     def carregar_outro_vendedor(self, dic_info_vendedor, *args):
         total_vendas = dic_info_vendedor["total_vendas"]
