@@ -84,7 +84,7 @@ class MainApp(App):
 
             # preencher o ID único
             id_vendedor = requisicao_dic["id_vendedor"]
-            self.if_vendedor = id_vendedor
+            self.id_vendedor = id_vendedor
             pagina_config = self.root.ids["configpage"]
             pagina_config.ids["label_id_vendedor"].text = f"Seu ID Único: {id_vendedor}"
 
@@ -165,6 +165,8 @@ class MainApp(App):
             equipe = self.equipe.split(',')
             if id_vendedor_add in equipe:
                 mensagem_aviso.text = "Vendedor já faz parte da equipe"
+            elif id_vendedor_add == self.id_vendedor:
+                mensagem_aviso.text = "Você pode adicionar a si mesmo na equipe."
             else:
                 self.equipe = self.equipe + f",{id_vendedor_add}"
                 info = f'{{"equipe": "{self.equipe}"}}'
