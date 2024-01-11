@@ -133,13 +133,22 @@ class MainApp(App):
         gerenciador_telas.current = id_tela
 
     def mudar_foto_perfil(self, foto, *args): #por padrão on_release manda vários argumentos, por isso o *args
-        foto_perfil = self.root.ids["foto_perfil"]
-        foto_perfil.source = f"icones/fotos_perfil/{foto}"
-
         # realizando um update no banco de dados
         info = f'{{"avatar": "{foto}"}}' # passar dicionário formatado como texto
         requisicao = requests.patch(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/"
                                     f"{self.local_id}.json?auth={self.id_token}", data=info)
+
+        # Corrigindo bug da foto de perfil não ser alterada
+        # atualizando informações do usuário na instância atual
+        requisicao = requests.get(f"https://aplicativovendashash-76c33-default-rtdb.firebaseio.com/"
+                                  f"{self.local_id}.json?auth={self.id_token}")
+        requisicao_dic = requisicao.json()
+        # preencher foto de perfil
+        avatar = requisicao_dic['avatar']
+        self.avatar = avatar
+        foto_perfil = self.root.ids["foto_perfil"]
+        foto_perfil.source = f"icones/fotos_perfil/{avatar}"
+
         self.mudar_tela("configpage")
 
     def adicionar_vendedor(self, id_vendedor_add):
@@ -294,9 +303,10 @@ class MainApp(App):
         # pintar de branco todos os itens de branco
         lista_clientes = pagina_adicionar_vendas.ids["lista_clientes"]
         lista_produtos = pagina_adicionar_vendas.ids["lista_produtos"]
-        for itens1, itens2 in zip(lista_clientes.children, lista_produtos.children):
-            itens1.color = (1, 1, 1, 1)
-            itens2.color = (1, 1, 1, 1)
+        for item in lista_produtos.children:
+            item.color = (1,1,1,1)
+        for item in lista_clientes.children:
+            item.color = (1,1,1,1)
 
     def carregar_todas_vendas(self):
         pagina_todas_vendas = self.root.ids["todasvendaspage"]
@@ -343,7 +353,7 @@ class MainApp(App):
         # retorna a foto de perfil do usuário
         foto_perfil = self.root.ids["foto_perfil"]
         foto_perfil.source = f"icones/fotos_perfil/{self.avatar}"
-        # volta para configpage
+        # volta para outra tela
         self.mudar_tela(id_tela)
 
     def carregar_outro_vendedor(self, dic_info_vendedor, *args):
