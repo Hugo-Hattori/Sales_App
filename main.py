@@ -3,13 +3,17 @@ from kivy.lang import Builder
 from telas import *
 from botoes import *
 import requests
-from bannervenda import BannerVenda
 import os
+import certifi
+from bannervenda import BannerVenda
 from functools import partial
 from myFirebase import MyFirebase
 from bannervendedor import BannerVendedor
 from datetime import date
 
+
+# Certificado
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 GUI = Builder.load_file('main.kv')
 class MainApp(App):
@@ -107,8 +111,8 @@ class MainApp(App):
                                          preco=venda['preco'], data=venda['data'], unidade=venda['unidade'],
                                          quantidade=venda['quantidade'])
                     lista_vendas.add_widget(banner)  #adicionar um item na lista de vendas
-            except Exception as erro:
-                print(erro)
+            except:
+                pass
 
             # preencher a equipe (vendedores que acompanha)
             equipe = requisicao_dic["equipe"]
@@ -302,13 +306,13 @@ class MainApp(App):
         self.produto = None
         self.unidade = None
 
-        # pintar de branco todos os itens de branco
+        # pintar de branco todos os itens
         lista_clientes = pagina_adicionar_vendas.ids["lista_clientes"]
         lista_produtos = pagina_adicionar_vendas.ids["lista_produtos"]
         for item in lista_produtos.children:
-            item.color = (1,1,1,1)
+            item.color = (1, 1, 1, 1)
         for item in lista_clientes.children:
-            item.color = (1,1,1,1)
+            item.color = (1, 1, 1, 1)
 
     def carregar_todas_vendas(self):
         pagina_todas_vendas = self.root.ids["todasvendaspage"]
