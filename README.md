@@ -42,7 +42,9 @@ are going to be used as widgets for specific pages of the App.</li>
 
 ## Login/Create Account Page
 
-![img.png](imgs/img.png)
+<p align="center">
+    <img src = "imgs/img.png" />
+</p>
 
 ## Login/Create Account error messages
 
@@ -52,31 +54,45 @@ are going to be used as widgets for specific pages of the App.</li>
 
 ## Salesman Profile
 
-![img_5.png](imgs/img_5.png)
+<p align="center">
+    <img src = "imgs/img_5.png" />
+</p>
 
 ## Add Sale
 
-![img_6.png](imgs/img_6.png)
+<p align="center">
+    <img src = "imgs/img_6.png" />
+</p>
 
 ## Configuration Page
 
-![img_7.png](imgs/img_7.png)
+<p align="center">
+    <img src = "imgs/img_7.png" />
+</p>
 
 ## Change Profile Picture Page
 
-![img_8.png](imgs/img_8.png)
+<p align="center">
+    <img src = "imgs/img_8.png" />
+</p>
 
 ## Add other user to the Contact List
 
-![img_10.png](imgs/img_10.png)
+<p align="center">
+    <img src = "imgs/img_10.png" />
+</p>
 
 ## Contact List
 
-![img_11.png](imgs/img_11.png)
+<p align="center">
+    <img src = "imgs/img_11.png" />
+</p>
 
 ## All Company's Sales Page
 
-![img_12.png](imgs/img_12.png)
+<p align="center">
+    <img src = "imgs/img_12.png" />
+</p>
 
 ## Deployment
 <p>This project was deployed by using a Linux Virtual Machine to 
