@@ -10,10 +10,14 @@ from functools import partial
 from myFirebase import MyFirebase
 from bannervendedor import BannerVendedor
 from datetime import date
+from kivy.config import Config
 
 
 # Certificado
 os.environ["SSL_CERT_FILE"] = certifi.where()
+
+Config.set('graphics', 'width', '350')
+Config.set('graphics', 'height', '575')
 
 GUI = Builder.load_file('main.kv')
 class MainApp(App):
